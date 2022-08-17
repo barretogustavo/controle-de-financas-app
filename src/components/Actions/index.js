@@ -5,8 +5,8 @@ import { AntDesign } from "@expo/vector-icons";
 const Container = styled.ScrollView`
   max-height: 110px;
   margin-bottom: 15px;
+  padding-right: 30px;
   padding-left: 20px;
-  padding-right: 20px;
 `;
 
 const ActionButton = styled.TouchableOpacity`

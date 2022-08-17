@@ -33,7 +33,7 @@ const Name = styled.Text`
 const Price = styled.Text`
   font-size: 16px;
   color: ${(props) =>
-    props.isBalance ? props.theme.colors.green : props.theme.colors.error};
+    props.isExpense ? props.theme.colors.green : props.theme.colors.error};
   font-weight: bold;
 `;
 
@@ -63,7 +63,7 @@ const Movements = ({ data }) => {
 
         <TouchableOpacity onPress={() => setShowValue(!showValue)}>
           {showValue ? (
-            <Price isBalance={data.isBalance}>R${data.price.toFixed(2)}</Price>
+            <Price isExpense={!data.isExpense}>R${data.price.toFixed(2)}</Price>
           ) : (
             <ShowValue>
               <Feather name="eye-off" size={15} />
