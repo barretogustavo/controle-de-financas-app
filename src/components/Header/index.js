@@ -1,71 +1,61 @@
 import React from "react";
-import {
-  View,
-  StatusBar,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MotiView, MotiText } from "moti";
 
-const statusBarHeight = StatusBar.currentHeight
-  ? StatusBar.currentHeight + 22
-  : 64;
+const Container = styled.View`
+  background-color: ${(props) => props.theme.colors.orange};
+  flex-direction: row;
+  padding-top: ${StatusBar.currentHeight ? StatusBar.currentHeight + 22 : 64};
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 44px;
+`;
+
+const Content = styled(MotiView)`
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Username = styled(MotiText)`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${(props) => props.theme.colors.white};
+`;
+
+const ButtonUser = styled.TouchableOpacity`
+  width: 44px;
+  height: 44px;
+  background-color: #f48527;
+  border-radius: 22px;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Header = ({ name }) => {
   return (
-    <View style={styles.container}>
-      <MotiView
-        style={styles.content}
+    <Container>
+      <Content
         from={{ translateY: -150, opacity: 0 }}
         animate={{ translateY: 0, opacity: 1 }}
         transition={{ type: "timing", duration: 800, delay: 300 }}
       >
-        <MotiText
-          style={styles.username}
+        <Username
           from={{ translateX: -300 }}
           animate={{ translateX: 0 }}
           transition={{ type: "timing", duration: 800, delay: 800 }}
         >
           {name}
-        </MotiText>
-        <TouchableOpacity activeOpacity={0.7} style={styles.buttonUser}>
+        </Username>
+        <ButtonUser activeOpacity={0.7}>
           <Feather name="user" size={27} style={{ color: "#fff" }} />
-        </TouchableOpacity>
-      </MotiView>
-    </View>
+        </ButtonUser>
+      </Content>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FA7C0E",
-    flexDirection: "row",
-    paddingTop: statusBarHeight,
-    paddingStart: 16,
-    paddingEnd: 16,
-    paddingBottom: 44,
-  },
-  content: {
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  username: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  buttonUser: {
-    width: 44,
-    height: 44,
-    backgroundColor: "#F48527",
-    borderRadius: 22,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default Header;

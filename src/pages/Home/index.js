@@ -1,8 +1,26 @@
-import { StyleSheet, Text, View, StatusBar, FlatList } from "react-native";
+import styled from "styled-components/native";
 import Header from "../../components/Header";
 import Balance from "../../components/Balance";
 import Movements from "../../components/Movements";
 import Actions from "../../components/Actions";
+import NoResultList from "../../components/NoResultList";
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.theme.colors.background};
+`;
+
+const Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px;
+  color: ${(props) => props.theme.titleActive};
+`;
+
+const List = styled.FlatList`
+  margin-left: 15px;
+  margin-right: 15px;
+`;
 
 const list = [
   {
@@ -53,36 +71,20 @@ const sumExpense = list
 
 const Home = () => {
   return (
-    <View style={styles.container}>
+    <Container>
       <Header name="Gustavo Barreto" />
       <Balance balance={sumBalance} expense={sumExpense} />
       <Actions />
-      <Text style={styles.title}>Últimas movimentações</Text>
-      <FlatList
-        style={styles.list}
+      <Title>Últimas movimentações</Title>
+      <List
         data={list}
         keyExtractor={(item) => String(item.id)}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => <Movements data={item} />}
+        ListEmptyComponent={<NoResultList text="Ainda não há movimentações" />}
       />
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fafafa",
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    margin: 15,
-  },
-  list: {
-    marginLeft: 15,
-    marginRight: 15,
-  },
-});
 
 export default Home;

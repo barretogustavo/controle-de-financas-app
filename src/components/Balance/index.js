@@ -1,89 +1,86 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MotiView } from "moti";
+
+const Container = styled(MotiView)`
+  height: 90px;
+  z-index: 20;
+  background-color: ${(props) => props.theme.colors.white};
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 18px;
+  margin-top: -24px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 16px;
+`;
+
+const TitleItem = styled.Text`
+  font-size: 20px;
+  color: ${(props) => props.theme.colors.label};
+`;
+
+const Content = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const CurrencySymbol = styled.Text`
+  color: ${(props) => props.theme.colors.label};
+  margin-right: 6px;
+`;
+
+const BalanceText = styled.Text`
+  font-size: 22px;
+  color: ${(props) => props.theme.colors.green};
+`;
+
+const Expenses = styled.Text`
+  font-size: 22px;
+`;
+
+const ShowValue = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+`;
 
 const Balance = ({ balance, expense }) => {
   const [showBalanceValue, setShowBalanceValue] = useState(false);
   const [showExpenseValue, setShowExpenseValue] = useState(false);
 
   return (
-    <MotiView
+    <Container
       from={{ rotateX: "-100deg", opacity: 0 }}
       animate={{ rotateX: "0deg", opacity: 1 }}
       transition={{ type: "timing", delay: 300, duration: 900 }}
-      style={styles.container}
     >
-      <TouchableOpacity
-        style={styles.item}
-        onPress={() => setShowBalanceValue(!showBalanceValue)}
-      >
-        <Text style={styles.itemTitle}>Saldo</Text>
-        <View style={styles.content}>
-          <Text style={styles.currencySymbol}>R$</Text>
+      <TouchableOpacity onPress={() => setShowBalanceValue(!showBalanceValue)}>
+        <TitleItem>Saldo</TitleItem>
+        <Content>
+          <CurrencySymbol>R$</CurrencySymbol>
           {showBalanceValue ? (
-            <Text style={styles.balance}>{balance}</Text>
+            <BalanceText>{balance}</BalanceText>
           ) : (
-            <Text style={styles.showValue}>•••••</Text>
+            <ShowValue>•••••</ShowValue>
           )}
-        </View>
+        </Content>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => setShowExpenseValue(!showExpenseValue)}
-        style={styles.item}
-      >
-        <Text style={styles.itemTitle}>Gastos</Text>
-        <View style={styles.content}>
-          <Text style={styles.currencySymbol}>R$</Text>
+      <TouchableOpacity onPress={() => setShowExpenseValue(!showExpenseValue)}>
+        <TitleItem>Gastos</TitleItem>
+        <Content>
+          <CurrencySymbol>R$</CurrencySymbol>
           {showExpenseValue ? (
-            <Text style={styles.expenses}>{expense}</Text>
+            <Expenses>{expense}</Expenses>
           ) : (
-            <Text style={styles.showValue}>•••••</Text>
+            <ShowValue>•••••</ShowValue>
           )}
-        </View>
+        </Content>
       </TouchableOpacity>
-    </MotiView>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 90,
-    zIndex: 20,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 18,
-    marginTop: -24,
-    marginLeft: 15,
-    marginRight: 15,
-    borderRadius: 16,
-  },
-  itemTitle: {
-    fontSize: 20,
-    color: "#dadada",
-  },
-  content: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  currencySymbol: {
-    color: "#dadada",
-    marginRight: 6,
-  },
-  balance: {
-    fontSize: 22,
-    color: "#2ecc71",
-  },
-  expenses: {
-    fontSize: 22,
-    color: "#999",
-  },
-  showValue: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});
 
 export default Balance;

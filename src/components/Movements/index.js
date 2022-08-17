@@ -1,7 +1,50 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 import { MotiView } from "moti";
 import { Feather } from "@expo/vector-icons";
+import NoResultList from "../NoResultList";
+
+const Container = styled.TouchableOpacity`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  border-bottom-width: 0.5px;
+  border-bottom-color: ${(props) => props.theme.colors.label};
+  background-color: ${(props) => props.theme.colors.white};
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+`;
+
+const Content = styled.View``;
+
+const Date = styled.Text`
+  color: ${(props) => props.theme.colors.label};
+  font-weight: bold;
+`;
+
+const Name = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const Price = styled.Text`
+  font-size: 16px;
+  color: ${(props) =>
+    props.isBalance ? props.theme.colors.green : props.theme.colors.error};
+  font-weight: bold;
+`;
+
+const ShowValue = styled.View`
+  width: 70px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.grey};
+  border-radius: 8px;
+`;
 
 const Movements = ({ data }) => {
   const [showValue, setShowValue] = useState(false);
@@ -12,70 +55,24 @@ const Movements = ({ data }) => {
       animate={{ translateX: 0 }}
       transition={{ type: "spring", duration: 500, delay: `${data.id}00` }}
     >
-      <TouchableOpacity style={styles.container}>
-        <View style={styles.content}>
-          <Text style={styles.name}>{data.name}</Text>
-          <Text style={styles.date}>{data.date}</Text>
-        </View>
+      <Container>
+        <Content>
+          <Name>{data.name}</Name>
+          <Date>{data.date}</Date>
+        </Content>
 
         <TouchableOpacity onPress={() => setShowValue(!showValue)}>
           {showValue ? (
-            <Text style={data.isBalance ? styles.balance : styles.expenses}>
-              R${data.price.toFixed(2)}
-            </Text>
+            <Price isBalance={data.isBalance}>R${data.price.toFixed(2)}</Price>
           ) : (
-            <View style={styles.showValue}>
+            <ShowValue>
               <Feather name="eye-off" size={15} />
-            </View>
+            </ShowValue>
           )}
         </TouchableOpacity>
-      </TouchableOpacity>
+      </Container>
     </MotiView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginBottom: 5,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#dadada",
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderRadius: 8,
-  },
-  content: {
-    justifyContent: "space-between",
-  },
-  date: {
-    color: "#ccc",
-    fontWeight: "bold",
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  balance: {
-    fontSize: 16,
-    color: "#2ecc71",
-    fontWeight: "bold",
-  },
-  expenses: {
-    fontSize: 16,
-    color: "#e74c3c",
-    fontWeight: "bold",
-  },
-  showValue: {
-    width: 70,
-    height: 25,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#eee",
-    borderRadius: 8,
-  },
-});
 
 export default Movements;
