@@ -5,7 +5,7 @@ import Home from "./src/pages/Home";
 const theme = {
   colors: {
     background: "#fafafa",
-    orange: "#fa7c0e",
+    primary: "#612f74",
     grey: "#eeeeee",
     titleActive: "#999999",
     white: "#ffffff",

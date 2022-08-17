@@ -5,9 +5,9 @@ import { Feather } from "@expo/vector-icons";
 import { MotiView, MotiText } from "moti";
 
 const Container = styled.View`
-  background-color: ${(props) => props.theme.colors.orange};
+  background-color: ${(props) => props.theme.colors.primary};
   flex-direction: row;
-  padding-top: ${StatusBar.currentHeight ? StatusBar.currentHeight + 22 : 64};
+  padding-top: ${StatusBar.currentHeight ? StatusBar.currentHeight + 22 : 64}px;
   padding-left: 16px;
   padding-right: 16px;
   padding-bottom: 44px;
@@ -29,7 +29,7 @@ const Username = styled(MotiText)`
 const ButtonUser = styled.TouchableOpacity`
   width: 44px;
   height: 44px;
-  background-color: #f48527;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 22px;
   justify-content: center;
   align-items: center;
